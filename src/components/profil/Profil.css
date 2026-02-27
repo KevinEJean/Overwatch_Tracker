@@ -1,0 +1,17 @@
+.profil-root {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: min-content auto min-content;
+    height: 95vh;
+}
+
+.profil-root a {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.profil-navbar {
+    display: flex;
+    place-content: center;
+    gap: 180px;
+}

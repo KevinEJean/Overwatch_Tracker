@@ -1,0 +1,12 @@
+.navbarRoot {
+    display: flex;
+    flex-direction: row;
+    place-content: center;
+    font-size: xx-large;
+    font-weight: bold;
+    gap: 180px;
+}
+
+.navbarRoot a:hover {
+    scale: 1.05;
+}
