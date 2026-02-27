@@ -13,6 +13,6 @@
 - API my data on load
 
 # Search
-## Updates main_frame
+### Updates main_frame
 - selects search filter first (hero/player)
 - API search on enter (and button)
