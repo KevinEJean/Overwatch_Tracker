@@ -3,14 +3,14 @@
 - <s>Navbar</s>
 - <s>Portfolio</s>
 - <s>Footer</s>
-- <s>404 page</s>
 - <p>Profil page</p>
 - <p>DefaultFrame page</p>
 - <p>Search page</p>
 - <p>Docker</p>
 
-# Profil
-- API my data on load
+# Extra
+- <s>404 page</s>
+- <p>Login page</p>
 
 # Search
 ### Updates main_frame
