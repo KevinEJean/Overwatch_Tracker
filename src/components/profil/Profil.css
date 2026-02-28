@@ -77,6 +77,12 @@
     place-self: center;
 }
 
+.profil-form .stats .rank {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+}
+
 .private-player-div a {
     font-size: xx-large;
     font-weight: bold;

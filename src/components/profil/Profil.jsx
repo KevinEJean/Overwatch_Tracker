@@ -5,24 +5,32 @@ import Footer from '../footer/Footer.jsx'
 export default function Profil() {
 
     const [isPrivate, setPrivate] = useState(null) // move to App.jsx when login is implemented
+    // const [levelFrame, setLevelFrame] = useState(null)
     const [portrait, setPortrait] = useState(null)
     const [username, setUsername] = useState(null)
-    const [level, setLevel] = useState(null) // int
-    const [endorsement, setEndorsement] = useState(null) // int
+    const [level, setLevel] = useState(null)
+    const [endorsement, setEndorsement] = useState(null)
     const [starImg, setStarImg] = useState(null)
-    const [levelFrame, setLevelFrame] = useState(null)
-    // competitive
+    // tank
     const [rankImageTank, setRankImgTank] = useState(null)
+    const [tierImageTank, setTierImageTank] = useState(null)
     const [rankTank, setRankTank] = useState(null)
+    const [tierTank, setTierTank] = useState(null)
+    // damage
     const [rankImageDps, setRankImgDps] = useState(null)
+    const [tierImageDps, setTierImagesDps] = useState(null)
     const [rankDps, setRankDps] = useState(null)
+    const [tierDps, setTierDps] = useState(null)
+    // support
     const [rankImageSup, setRankImgSup] = useState(null)
+    const [tierImageSup, setTierImagesSup] = useState(null)
     const [rankSup, setRankSup] = useState(null)
+    const [tierSup, setTierSup] = useState(null)
 
 
 
 
-    
+
     // API
 
 
@@ -60,13 +68,23 @@ export default function Profil() {
 
                         <div className='stats'>
                             <img src='roles/tank.svg' alt='tank' />
-                            <img src={rankImageTank} alt={rankTank} />
+                            <div className='rank'>
+                                <img src={rankImageTank} alt={rankTank} />
+                                <img src={tierImageTank} alt={tierTank} />
+                            </div>
+
 
                             <img src='roles/damage.svg' alt='damage' />
-                            <img src={rankImageDps} alt={rankDps} />
+                            <div className='rank'>
+                                <img src={rankImageDps} alt={rankDps} />
+                                <img src={tierImageDps} alt={tierDps} />
+                            </div>
 
                             <img src='roles/support.svg' alt='support' />
-                            <img src={rankImageSup} alt={rankSup} />
+                            <div className='rank'>
+                                <img src={rankImageSup} alt={rankSup} />
+                                <img src={tierImageSup} alt={tierSup} />
+                            </div>
                         </div>
                     </form>
                 </div>
