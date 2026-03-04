@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Profil.css'
 import Footer from '../footer/Footer.jsx'
+import fetchData from '../util/fetchData.jsx';
+import { data } from 'react-router-dom';
 
 export default function Profil() {
 
     const [isPrivate, setPrivate] = useState(null) // move to App.jsx when login is implemented
-    // const [levelFrame, setLevelFrame] = useState(null)
-    const [portrait, setPortrait] = useState(null)
     const [username, setUsername] = useState(null)
-    const [level, setLevel] = useState(null)
-    const [endorsement, setEndorsement] = useState(null)
-    const [starImg, setStarImg] = useState(null)
+    const [portrait, setPortrait] = useState(null)
+    const [namecard, setNamecard] = useState(null)
+    const [title, setTitle] = useState(null)
+    const [endorsementImg, setEndorsementImg] = useState(null)
+    const [endorsementLevel, setEndorsementLevel] = useState(null)
     // tank
     const [rankImageTank, setRankImgTank] = useState(null)
     const [tierImageTank, setTierImageTank] = useState(null)
@@ -26,77 +28,200 @@ export default function Profil() {
     const [tierImageSup, setTierImagesSup] = useState(null)
     const [rankSup, setRankSup] = useState(null)
     const [tierSup, setTierSup] = useState(null)
-
-
-
-
+    // open
+    const [rankImageOpen, setRankImgOpen] = useState(null)
+    const [tierImageOpen, setTierImagesOpen] = useState(null)
+    const [rankOpen, setRankOpen] = useState(null)
+    const [tierOpen, setTierOpen] = useState(null)
+    // stats
+    const [timePlayed, setTimePlayed] = useState(null)
+    const [gamesPlayed, setGamesPlayed] = useState(null)
+    const [gamesWon, setGamesWon] = useState(null)
+    const [gamesLost, setGamesLost] = useState(null)
+    const [favoriteHero, setFavoriteHero] = useState(null)
+    const [favoriteHeroImg, setFavoriteHeroImg] = useState('overwatch.png')
+    const [favoriteHeroPlaytime, setFavoriteHeroPlaytime] = useState(0)
 
     // API
-
-
-
-
+    const isPlatformPC = true; // localStorage.getItem('PLATFORM')
+    const playerID = 'pge#11208'; // localStorage.getItem('TAG')
 
     if (!isPrivate) {
 
-        return (
-            <div className='profil-root'>
-                <div className='profil-navbar'>
-                    <a href='/'>Home</a>
-                    <img src='overwatch.png' alt='overwatch logo' />
-                    <a href='https://github.com/KevinEJean/Portfolio' target='_blank'>Portfolio</a>
-                </div>
+        const disconnect = (e) => {
+            e.preventDefault();
+            localStorage.removeItem('TAG');
+            localStorage.removeItem('PLATFORM');
+            window.location = '/';
+        }
 
-                <div className='profil-content'>
-                    <form className='profil-form'>
-                        <div className='header'>
-                            {/* (try to encase in levelFrame) */}
-                            <img id='portrait' src={portrait} alt='portrait' />
-                            <div className='user-info'>
-                                <h1 id='username'>{username}</h1>
-                                <div className='levels'>
-                                    <h2 id='level'>Level: <b>{level}</b></h2>
-                                    <h2>|</h2>
-                                    <h2 id='endorsement'>Endorsement: <b>{endorsement}</b></h2>
-                                    <h2>|</h2>
-                                    <img src={starImg} alt='star' />
+        useEffect(() => {
+            const DataStyler = async () => {
+                const playerData = await fetchData(true, playerID);
+                const allHeroData = await fetchData(false, playerID);
+
+                if (playerData && allHeroData) {
+                    const summaryData = playerData.summary;
+                    const comp = isPlatformPC ? summaryData.competitive.pc : summaryData.competitive.console;
+
+                    // --- INFO ---
+                    setUsername(summaryData?.username);
+                    setPortrait(summaryData?.avatar);
+                    setNamecard(summaryData?.namecard);
+                    setTitle(summaryData?.title);
+                    setEndorsementImg(summaryData?.endorsement?.frame);
+                    setEndorsementLevel(summaryData?.endorsement?.level);
+
+                    // --- TANK ---
+                    setRankImgTank(comp.tank?.rank_icon);
+                    setTierImageTank(comp.tank?.tier_icon);
+                    setRankTank(comp.tank?.division);
+                    setTierTank(comp.tank?.tier);
+
+                    // --- DAMAGE ---
+                    setRankImgDps(comp.damage?.rank_icon);
+                    setTierImagesDps(comp.damage?.tier_icon);
+                    setRankDps(comp.damage?.division);
+                    setTierDps(comp.damage?.tier);
+
+                    // --- SUPPORT ---
+                    setRankImgSup(comp.support?.rank_icon);
+                    setTierImagesSup(comp.support?.tier_icon);
+                    setRankSup(comp.support?.division);
+                    setTierSup(comp.support?.tier);
+
+                    // --- OPEN ---
+                    setRankImgOpen(comp.open?.rank_icon);
+                    setTierImagesOpen(comp.open?.tier_icon);
+                    setRankOpen(comp.open?.division);
+                    setTierOpen(comp.open?.tier);
+
+                    const statsData = isPlatformPC ? playerData.stats.pc : playerData.stats.console;
+
+                    // --- STATS ---
+                    setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[0].value)
+                    setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value)
+                    setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value)
+                    setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value)
+
+                    const allHeroStats = statsData?.competitive?.career_stats;
+                    var curHeroPlaytime, curFavoriteHero, curFavoriteHeroPlaytime = '';
+                    var curFavortiteHeroImg = 'overwatch.png';
+
+                    // -- COMPARING HERO'S TIME PLAYED
+                    Object.entries(allHeroStats).forEach(([heroName, heroData]) => {
+                        if (heroName != 'all-heroes' && heroData != null) {
+                            curHeroPlaytime = heroData[3]?.stats[0]?.value;
+
+                            if (curHeroPlaytime > curFavoriteHeroPlaytime) {
+                                curFavoriteHeroPlaytime = curHeroPlaytime;
+                                curFavoriteHero = heroName;
+
+                                Object.entries(allHeroData).forEach(([index, hero]) => {
+                                    if (hero.key == heroName) {
+                                        curFavortiteHeroImg = hero.portrait;
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+                    // --- SETTING FAVORITE HERO ---
+                    setFavoriteHero(curFavoriteHero)
+                    setFavoriteHeroImg(curFavortiteHeroImg)
+                    setFavoriteHeroPlaytime(curFavoriteHeroPlaytime)
+                }
+            };
+            DataStyler();
+        }, [playerID]);
+
+        if (data) {
+
+            return (
+                <div className='profil-root'>
+                    <div className='profil-navbar'>
+                        <a href='/'>Home</a>
+                        <img src='overwatch.png' alt='overwatch logo' />
+                        <a href='https://github.com/KevinEJean/Portfolio' target='_blank'>Portfolio</a>
+                    </div>
+
+                    <div className='profil-content'>
+                        <form className='profil-form'>
+                            <div className='header' style={{ backgroundImage: `url(${namecard})` }}>
+                                {/* (try to encase in levelFrame) */}
+                                <img id='portrait' src={portrait} alt='portrait' />
+                                <div className='user-info'>
+                                    <h1 id='username'>{username}</h1>
+                                    <h2 id='cosmetics'>{title} <img src={endorsementImg} alt={endorsementLevel} /></h2>
                                 </div>
                             </div>
-                        </div>
 
-                        <hr />
+                            <hr />
 
-                        <div className='stats'>
-                            <img src='roles/tank.svg' alt='tank' />
-                            <div className='rank'>
-                                <img src={rankImageTank} alt={rankTank} />
-                                <img src={tierImageTank} alt={tierTank} />
+                            <h1 id='colored-h1'>Competitve</h1>
+                            <div className='competitive'>
+                                <div className='ranks'>
+
+
+                                    <div className='pc'>
+                                        <h1>PC</h1>
+                                        <img src='roles/tank.svg' alt='tank' />
+                                        <div className='rankIcon'>
+                                            <img src={rankImageTank} alt={rankTank} />
+                                            <img src={tierImageTank} alt={tierTank} />
+                                        </div>
+
+
+                                        <img src='roles/damage.svg' alt='damage' />
+                                        <div className='rankIcon'>
+                                            <img src={rankImageDps} alt={rankDps} />
+                                            <img src={tierImageDps} alt={tierDps} />
+                                        </div>
+
+                                        <img src='roles/support.svg' alt='support' />
+                                        <div className='rankIcon'>
+                                            <img src={rankImageSup} alt={rankSup} />
+                                            <img src={tierImageSup} alt={tierSup} />
+                                        </div>
+
+                                        <img src='roles/open.svg' alt='open' />
+                                        <div className='rankIcon'>
+                                            <img src={rankImageOpen} alt={rankOpen} />
+                                            <img src={tierImageOpen} alt={tierOpen} />
+                                        </div>
+                                    </div>
+
+                                    <div className='console'>
+                                        <h1>Console </h1>
+
+                                    </div>
+                                </div>
+
+                                <div className='career-stats'>
+                                    <h1>Time played: <b>{timePlayed} <u>hours</u></b></h1>
+                                    <h1>Games played: <b>{gamesPlayed}</b></h1>
+                                    <h1>Games won: <b>{gamesWon}</b></h1>
+                                    <h1>Games lost: <b>{gamesLost}</b></h1>
+                                    <h1>Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{favoriteHeroPlaytime} <u>hours</u></b></h1>
+                                </div>
                             </div>
 
-
-                            <img src='roles/damage.svg' alt='damage' />
-                            <div className='rank'>
-                                <img src={rankImageDps} alt={rankDps} />
-                                <img src={tierImageDps} alt={tierDps} />
+                            <div className='buttons'>
+                                <button onClick={(e) => disconnect}>Switch Profil</button>
                             </div>
-
-                            <img src='roles/support.svg' alt='support' />
-                            <div className='rank'>
-                                <img src={rankImageSup} alt={rankSup} />
-                                <img src={tierImageSup} alt={tierSup} />
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    {<Footer />}
                 </div>
-                {<Footer />}
-            </div>
-        );
-    } else {
-        return (
-            <div className='private-player-div'>
-                <a href="/">Home</a>
-                <h1>This username is not associated to any public profiles.</h1>
-            </div>
-        );
+            );
+
+        } else {
+            return (
+                <div className='private-player-div'>
+                    <a href="/">Home</a>
+                    <h1>This username is not associated to any public profiles.</h1>
+                </div>
+            );
+        }
     }
 }

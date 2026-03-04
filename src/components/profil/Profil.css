@@ -26,6 +26,16 @@
     color: white;
 }
 
+.profil-form b {
+    color: orange;
+    font-weight: bold;
+}
+
+.profil-form u {
+    text-decoration: none;
+    font-size: medium;
+}
+
 .profil-form h1 {
     margin: 0;
 }
@@ -50,38 +60,60 @@
     grid-template-rows: min-content min-content;
 }
 
-.profil-form .header .user-info .levels {
-    display: flex;
-    place-content: center;
-    gap: 10px;
-}
-
-.profil-form .header .user-info .levels h2 {
+.profil-form .header .user-info #cosmetics {
     margin: 0;
-    color: white;
-}
-
-.profil-form .header .user-info .levels b {
-    color: orange;
-}
-
-.profil-form .stats {
-    display: flex;
+    opacity: 50%;
     place-content: center;
-    gap: 8px;
 }
 
-.profil-form .stats img {
-    max-width: 40px;
-    max-height: min-content;
-    place-self: center;
+.profil-form .header .user-info #cosmetics img {
+    width: 25px;
 }
 
-.profil-form .stats .rank {
+.profil-form #colored-h1 {
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+
+.profil-form .competitive {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.profil-form .competitive .ranks {
     display: flex;
     flex-direction: column;
-    place-content: center;
 }
+
+.profil-form .competitive .ranks img {
+    max-width: 40px;
+    max-height: min-content;
+    /* place-self: center; */
+}
+
+.profil-form .competitive .ranks .pc, .console {
+    display: flex;
+    flex-direction: row;
+    column-gap: 6px;
+}
+
+.profil-form .competitive .ranks .rankIcon {
+    display: flex;
+    flex-direction: column;
+    /* place-content: center; */
+}
+
+.profil-form .competitive .career-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.profil-form .competitive .career-stats img {
+    width: 40px;
+}
+
 
 .private-player-div a {
     font-size: xx-large;

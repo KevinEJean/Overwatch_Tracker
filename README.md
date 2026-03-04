@@ -5,7 +5,7 @@
 - <s>Footer</s>
 - <s>404 page</s>
 - <s>DefaultFrame page</s>
-- <p>Profil page</p>
+- <s>Profil page</s>
 - <p>Docker</p>
 
 # Extra
