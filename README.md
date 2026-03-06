@@ -6,7 +6,7 @@
 - <s>404 page</s>
 - <s>DefaultFrame page</s>
 - <s>Profil page</s>
-- <p>Docker</p>
+- <s>Docker</s>
 
 # Extra
 - <p>Login page</p>
