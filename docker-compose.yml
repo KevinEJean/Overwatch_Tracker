@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app          # Map current local folder to /app in container
+      - /app/node_modules # Don't overwrite container modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true # Helps React notice changes on Windows/WSL

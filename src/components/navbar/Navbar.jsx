@@ -1,27 +1,17 @@
-import { useState } from 'react';
-import './Navbar.css'
-import { href } from 'react-router-dom';
+import './Navbar.css';
 
 export default function Navbar({ setFrame, curFrame = '' }) {
 
-  var frameChecker = false;
-
   const changeFrame = (e) => {
-    e.preventDefault()
-    setFrame(String(e.target.textContent))
-    e.target.style.color = 'white'
-  }
-
-  if (curFrame == '' && window.location.pathname == '/') {
-    frameChecker = true;
+    e.preventDefault();
+    setFrame(String(e.target.textContent));
+    e.target.style.color = 'white';
   }
 
   return (
     <div className='navbarRoot'>
-      <a id='home_btn' href='/' style={{ color: frameChecker ? 'white' : '' }}>Home</a>
-      <a href='' onClick={changeFrame}>Search</a>
-      <img src='overwatch.png' alt='overwatch logo' />
-      <a href='/profil'>Profil</a>
+      <a id='home_btn' href='/'>Home</a>
+      <a href='/profil'>Players</a>
       <a href='https://github.com/KevinEJean/Portfolio' target='_blank'>Portfolio</a>
     </div>
   );

@@ -9,7 +9,7 @@
 - <s>Docker</s>
 
 # Extra
-- <p>Login page</p>
+- <s>Login page</s>
 - <p>Search page</p>
 
 # Search

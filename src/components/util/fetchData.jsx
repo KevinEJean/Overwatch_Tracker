@@ -10,7 +10,7 @@ export default async function FetchData(isPlayerFetch, tag) {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error(`API Error: ${response.status}. The player's profil might be private or not found.`);
+            throw new Error(`[${response.status}] The player's profil might be private or not found.`);
         }
 
         const data = await response.json();

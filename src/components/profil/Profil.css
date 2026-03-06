@@ -9,6 +9,7 @@
     display: flex;
     place-content: center;
     gap: 150px;
+    margin: 0 0 10px 0;
 }
 
 .profil-navbar a {
@@ -82,19 +83,14 @@
 
 .profil-form .competitive .ranks {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    column-gap: 6px;
 }
 
 .profil-form .competitive .ranks img {
     max-width: 40px;
     max-height: min-content;
     /* place-self: center; */
-}
-
-.profil-form .competitive .ranks .pc, .console {
-    display: flex;
-    flex-direction: row;
-    column-gap: 6px;
 }
 
 .profil-form .competitive .ranks .rankIcon {
@@ -113,6 +109,52 @@
 .profil-form .competitive .career-stats img {
     width: 40px;
 }
+
+
+
+
+
+.login-root {
+    display: grid;
+    grid-template-columns: max-content;
+    grid-template-rows: min-content 1fr min-content min-content;
+    place-self: center;
+    scale: 1.25;
+}
+
+.login-root #title {
+    text-decoration: underline;
+}
+
+.login-root .username-box {
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    place-items: center;
+    place-content: center;
+}
+
+.login-root .username-box h2 {
+    margin: 0;
+}
+
+.login-root .username-box p {
+    color: orange;
+}
+
+.login-root #error-prompt {
+    color: red;
+    margin: 0;
+}
+
+.login-root button {
+    width: 100%;
+    place-self: center;
+}
+
+
+
+
 
 
 .private-player-div a {

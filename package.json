@@ -5,7 +5,7 @@
   "type": "module",
   "proxy": "https://best-overwatch-api.herokuapp.com",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 8080",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

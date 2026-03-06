@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import Frame from './main_frame/Frame.jsx'
-import Footer from './footer/Footer.jsx'
-import Navbar from './navbar/navbar.jsx';
+import Frame from './main_frame/Frame.jsx';
+import Footer from './footer/Footer.jsx';
+import Navbar from './navbar/Navbar.jsx';
 
 export default function App() {
-  
-  const [frame, setFrame] = useState('')
+
+  const [frame, setFrame] = useState('');
 
   return (
     <div className='root-grid'>

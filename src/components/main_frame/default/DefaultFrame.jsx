@@ -1,4 +1,4 @@
-import './DefaultFrame.css'
+import './DefaultFrame.css';
 
 export default function DefaultFrame() {
 
