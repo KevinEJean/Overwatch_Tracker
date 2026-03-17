@@ -33,6 +33,7 @@ export default function Profil() {
     const [rankOpen, setRankOpen] = useState(null);
     const [tierOpen, setTierOpen] = useState(null);
     // stats
+    const [curSeason, setCurSeason] = useState(1); // needs to change dynamically
     const [timePlayed, setTimePlayed] = useState(null);
     const [gamesPlayed, setGamesPlayed] = useState(null);
     const [gamesWon, setGamesWon] = useState(null);
@@ -90,9 +91,9 @@ export default function Profil() {
 
             // --- STATS ---
             setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[0].value)
-            setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value)
-            setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value)
-            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value)
+            setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value)
+            setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value)
+            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[4].value)
 
             const allHeroStats = statsData?.competitive?.career_stats;
             var curHeroPlaytime, curFavoriteHero, curFavoriteHeroPlaytime = '';
@@ -138,18 +139,17 @@ export default function Profil() {
         useEffect(() => {
             if (playerID) {
                 DataStyler();
-            } else {
-                setLoading(false);
             }
         }, [playerID]);
 
         if (username === null && playerID != null) {
             return (
                 <>
-                    <h1>Errrrmmm...</h1>
-                    <h1>{playerID} could not be found.</h1>
-                    <h2 style={{ color: 'orange' }}>The user may have set their profile private. If not please make sure the tag and name are correct.</h2>
+                    <h1>Loading...</h1>
+                    <h1>This may take a few seconds, please wait.</h1>
+                    <h2 style={{ color: 'orange' }}>If this has taken more than 1 minute refresh tha page or try searching the username again.</h2>
                     <a href="/search" onClick={(e) => localStorage.clear('TAG')}>click here to try again</a>
+
                 </>
             );
         }
@@ -175,7 +175,7 @@ export default function Profil() {
 
                         <hr />
 
-                        <h1 id='colored-h1'>Competitve</h1>
+                        <h1 id='colored-h1'>Competitve: <b>Season {curSeason}</b></h1>
                         <div className='competitive'>
                             <div className='ranks'>
                                 <h1>{isPlatformPC ? 'PC' : 'Console'}</h1>
@@ -206,11 +206,13 @@ export default function Profil() {
                             </div>
 
                             <div className='career-stats'>
-                                <h1>Time played: <b>{timePlayed} <u>hours</u></b></h1>
+                                <h1>Time played: <b>{(timePlayed / 3600).toFixed(0)} <u>hours</u></b></h1>
                                 <h1>Games played: <b>{gamesPlayed}</b></h1>
                                 <h1>Games won: <b>{gamesWon}</b></h1>
                                 <h1>Games lost: <b>{gamesLost}</b></h1>
-                                <h1>Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{favoriteHeroPlaytime} <u>hours</u></b></h1>
+                                <h1>
+                                    Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{(favoriteHeroPlaytime / 3600).toFixed(0)} <u>hours</u></b>
+                                </h1>
                             </div>
                         </div>
 

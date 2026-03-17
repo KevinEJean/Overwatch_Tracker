@@ -10,9 +10,4 @@
 
 # Extra
 - <s>Login page</s>
-- <p>Search page</p>
-
-# Search
-### Updates main_frame
-- selects search filter first (hero/player)
-- API search on enter (and button)
+- <s>Search page</s>

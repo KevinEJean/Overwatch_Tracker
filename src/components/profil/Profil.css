@@ -63,7 +63,7 @@
 
 .profil-form .header .user-info #cosmetics {
     margin: 0;
-    opacity: 50%;
+    color: orange;
     place-content: center;
 }
 
