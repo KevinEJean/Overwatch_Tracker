@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Profil.css';
 import Footer from '../footer/Footer.jsx';
 import fetchData from '../util/FetchData.jsx';
+import { data } from 'react-router-dom';
 
 export default function Profil() {
 
@@ -90,16 +91,16 @@ export default function Profil() {
             const statsData = isPlatformPC ? playerData.stats.pc : playerData.stats.console;
 
             // --- STATS ---
-            setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[0].value)
-            setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value)
-            setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value)
-            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[4].value)
+            setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value);
+            setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value);
+            setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[4].value);
+            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[5].value);
 
             const allHeroStats = statsData?.competitive?.career_stats;
             var curHeroPlaytime, curFavoriteHero, curFavoriteHeroPlaytime = '';
             var curFavortiteHeroImg = 'overwatch.png';
 
-            // -- COMPARING HERO'S TIME PLAYED
+            // -- GETTING MOST PLAYED HERO OUT OF ALL OTHER HEROS
             Object.entries(allHeroStats).forEach(([heroName, heroData]) => {
                 if (heroName != 'all-heroes' && heroData != null) {
                     curHeroPlaytime = heroData[3]?.stats[0]?.value;
@@ -118,12 +119,14 @@ export default function Profil() {
             });
 
             // --- SETTING FAVORITE HERO ---
-            setFavoriteHero(curFavoriteHero)
-            setFavoriteHeroImg(curFavortiteHeroImg)
-            setFavoriteHeroPlaytime(curFavoriteHeroPlaytime)
+            setFavoriteHero(curFavoriteHero);
+            setFavoriteHeroImg(curFavortiteHeroImg);
+            setFavoriteHeroPlaytime(curFavoriteHeroPlaytime);
+
+            console.log(playerData);
 
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     };
 
@@ -165,7 +168,6 @@ export default function Profil() {
                 <div className='profil-content'>
                     <form className='profil-form'>
                         <div className='header' style={{ backgroundImage: `url(${namecard})` }}>
-                            {/* (try to encase in levelFrame) */}
                             <img id='portrait' src={portrait} alt='portrait' />
                             <div className='user-info'>
                                 <h1 id='username'>{username}</h1>

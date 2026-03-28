@@ -1,9 +1,19 @@
+/* ############### PROFIL GRID ############### */
+
+
+
 .profil-root {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: min-content auto min-content;
     height: 95vh;
 }
+
+
+
+/* ############### NAVBAR STYLE ############### */
+
+
 
 .profil-navbar {
     display: flex;
@@ -20,6 +30,12 @@
 .profil-navbar img {
     width: 80px;
 }
+
+
+
+/* ############### MAIN FORM STYLE ############### */
+
+
 
 .profil-form {
     height: 100%;
@@ -40,6 +56,12 @@
 .profil-form h1 {
     margin: 0;
 }
+
+
+
+/* ############### FORM PORTRAIT STYLE ############### */
+
+
 
 .profil-form .header {
     display: flex;
@@ -76,6 +98,12 @@
     text-align: center;
 }
 
+
+
+/* ############### FORM RANKS STYLE ############### */
+
+
+
 .profil-form .competitive {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -99,6 +127,12 @@
     /* place-content: center; */
 }
 
+
+
+/* ############### FORM STATS STYLE ############### */
+
+
+
 .profil-form .competitive .career-stats {
     display: flex;
     flex-direction: column;
@@ -111,6 +145,8 @@
 }
 
 
+
+/* ############### LOGIN STYLE ############### */
 
 
 
@@ -150,14 +186,4 @@
 .login-root button {
     width: 100%;
     place-self: center;
-}
-
-
-
-
-
-
-.private-player-div a {
-    font-size: xx-large;
-    font-weight: bold;
 }

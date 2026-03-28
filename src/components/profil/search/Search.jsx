@@ -4,7 +4,7 @@ export default function Search() {
     const [errorText, setErrorText] = useState('');
 
     const handleCheckbox = (e) => {
-        localStorage.setItem('PLATFORM', e.target.checked)
+        localStorage.setItem('PLATFORM', e.target.checked);
     }
 
     const submitForm = (e) => {
@@ -43,7 +43,7 @@ export default function Search() {
                         type="checkbox"
                         onChange={handleCheckbox}
                     />
-                    <p>*Check only if the player is on PC</p>
+                    <p>*check the box if the player is on PC</p>
                 </div>
                 <p id='error-prompt'>{errorText}</p>
                 <button onClick={submitForm}>Submit</button>
