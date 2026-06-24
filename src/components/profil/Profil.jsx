@@ -34,7 +34,7 @@ export default function Profil() {
     const [rankOpen, setRankOpen] = useState(null);
     const [tierOpen, setTierOpen] = useState(null);
     // stats
-    const [curSeason, setCurSeason] = useState(1); // needs to change dynamically
+    const [curSeason, setCurSeason] = useState(3); // needs to change dynamically
     const [timePlayed, setTimePlayed] = useState(null);
     const [gamesPlayed, setGamesPlayed] = useState(null);
     const [gamesWon, setGamesWon] = useState(null);
