@@ -96,7 +96,7 @@ export default function Profil() {
             setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value);
             setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value);
             
-            /* Sometime *.stats[3] is gamesTied */
+            /* If a player has a tied game *.stats[3].key becomes game_tied and *.game_lost[4].key becomes game_lost */
             if (statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].key === 'game_tied') {
                 setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[4].value);
             } else {
