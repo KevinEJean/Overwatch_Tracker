@@ -51,6 +51,8 @@ export default function Profil() {
             const allHeroData = await fetchData(false, playerID);
             const playerData = await fetchData(true, playerID);
 
+            console.log(playerData);
+
             if (!playerData || !playerData.summary) throw new Error("Not found");
 
             const summaryData = playerData.summary;
@@ -91,10 +93,10 @@ export default function Profil() {
             const statsData = isPlatformPC ? playerData.stats.pc : playerData.stats.console;
 
             // --- STATS ---
-            setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value);
-            setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value);
-            setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[4].value);
-            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[5].value);
+            setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[0].value);
+            setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value);
+            setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value);
+            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value);
 
             const allHeroStats = statsData?.competitive?.career_stats;
             var curHeroPlaytime, curFavoriteHero, curFavoriteHeroPlaytime = '';
@@ -122,8 +124,6 @@ export default function Profil() {
             setFavoriteHero(curFavoriteHero);
             setFavoriteHeroImg(curFavortiteHeroImg);
             setFavoriteHeroPlaytime(curFavoriteHeroPlaytime);
-
-            console.log(playerData);
 
         } catch (error) {
             console.error(error);
@@ -208,12 +208,12 @@ export default function Profil() {
                             </div>
 
                             <div className='career-stats'>
-                                <h1>Time played: <b>{(timePlayed / 3600).toFixed(0)} <u>hours</u></b></h1>
+                                <h1>Time played: <b>{(timePlayed / 3600 * 10).toFixed(0)}<u>hours</u></b></h1>
                                 <h1>Games played: <b>{gamesPlayed}</b></h1>
                                 <h1>Games won: <b>{gamesWon}</b></h1>
                                 <h1>Games lost: <b>{gamesLost}</b></h1>
                                 <h1>
-                                    Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{(favoriteHeroPlaytime / 3600).toFixed(0)} <u>hours</u></b>
+                                    Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{(favoriteHeroPlaytime / 3600 * 10).toFixed(0)}<u>hours</u></b>
                                 </h1>
                             </div>
                         </div>
