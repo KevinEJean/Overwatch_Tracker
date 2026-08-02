@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import './Profil.css';
 import Footer from '../footer/Footer.jsx';
 import fetchData from '../util/FetchData.jsx';
-import { data } from 'react-router-dom';
 
 export default function Profil() {
 
@@ -16,23 +15,23 @@ export default function Profil() {
     // tank
     const [rankImageTank, setRankImgTank] = useState(null);
     const [tierImageTank, setTierImageTank] = useState(null);
-    const [rankTank, setRankTank] = useState(null);
-    const [tierTank, setTierTank] = useState(null);
+    const [altRankTank, setltRankTank] = useState(null);
+    const [altTierTank, setAltTierTank] = useState(null);
     // damage
     const [rankImageDps, setRankImgDps] = useState(null);
     const [tierImageDps, setTierImagesDps] = useState(null);
-    const [rankDps, setRankDps] = useState(null);
-    const [tierDps, setTierDps] = useState(null);
+    const [altRankDps, setAltRankDps] = useState(null);
+    const [altTierDps, setAltTierDps] = useState(null);
     // support
     const [rankImageSup, setRankImgSup] = useState(null);
     const [tierImageSup, setTierImagesSup] = useState(null);
-    const [rankSup, setRankSup] = useState(null);
-    const [tierSup, setTierSup] = useState(null);
+    const [altRankSup, setAltRankSup] = useState(null);
+    const [altTierSup, setAltTierSup] = useState(null);
     // open
     const [rankImageOpen, setRankImgOpen] = useState(null);
     const [tierImageOpen, setTierImagesOpen] = useState(null);
-    const [rankOpen, setRankOpen] = useState(null);
-    const [tierOpen, setTierOpen] = useState(null);
+    const [altRankOpen, setAltRankOpen] = useState(null);
+    const [altTierOpen, setAltTierOpen] = useState(null);
     // stats
     const [curSeason, setCurSeason] = useState(3); // needs to change dynamically
     const [timePlayed, setTimePlayed] = useState(null);
@@ -69,26 +68,26 @@ export default function Profil() {
             // --- TANK ---
             setRankImgTank(comp.tank?.rank_icon);
             setTierImageTank(comp.tank?.tier_icon);
-            setRankTank(comp.tank?.division);
-            setTierTank(comp.tank?.tier);
+            setltRankTank(comp.tank?.division);
+            setAltTierTank(comp.tank?.tier);
 
             // --- DAMAGE ---
             setRankImgDps(comp.damage?.rank_icon);
             setTierImagesDps(comp.damage?.tier_icon);
-            setRankDps(comp.damage?.division);
-            setTierDps(comp.damage?.tier);
+            setAltRankDps(comp.damage?.division);
+            setAltTierDps(comp.damage?.tier);
 
             // --- SUPPORT ---
             setRankImgSup(comp.support?.rank_icon);
             setTierImagesSup(comp.support?.tier_icon);
-            setRankSup(comp.support?.division);
-            setTierSup(comp.support?.tier);
+            setAltRankSup(comp.support?.division);
+            setAltTierSup(comp.support?.tier);
 
             // --- OPEN ---
             setRankImgOpen(comp.open?.rank_icon);
             setTierImagesOpen(comp.open?.tier_icon);
-            setRankOpen(comp.open?.division);
-            setTierOpen(comp.open?.tier);
+            setAltRankOpen(comp.open?.division);
+            setAltTierOpen(comp.open?.tier);
 
             const statsData = isPlatformPC ? playerData.stats.pc : playerData.stats.console;
 
@@ -96,7 +95,13 @@ export default function Profil() {
             setTimePlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[0].value);
             setGamesPlayed(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[1].value);
             setGamesWon(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[2].value);
-            setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value);
+            
+            /* Sometime *.stats[3] is gamesTied */
+            if (statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].key === 'game_tied') {
+                setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[4].value);
+            } else {
+                setGamesLost(statsData?.competitive?.career_stats?.['all-heroes'][2].stats[3].value);
+            }
 
             const allHeroStats = statsData?.competitive?.career_stats;
             var curHeroPlaytime, curFavoriteHero, curFavoriteHeroPlaytime = '';
@@ -183,37 +188,37 @@ export default function Profil() {
                                 <h1>{isPlatformPC ? 'PC' : 'Console'}</h1>
                                 <img src='roles/tank.svg' alt='tank' />
                                 <div className='rankIcon'>
-                                    <img src={rankImageTank} alt={rankTank} />
-                                    <img src={tierImageTank} alt={tierTank} />
+                                    <img src={rankImageTank} alt={altRankTank} />
+                                    <img src={tierImageTank} alt={altTierTank} />
                                 </div>
 
 
                                 <img src='roles/damage.svg' alt='damage' />
                                 <div className='rankIcon'>
-                                    <img src={rankImageDps} alt={rankDps} />
-                                    <img src={tierImageDps} alt={tierDps} />
+                                    <img src={rankImageDps} alt={altRankDps} />
+                                    <img src={tierImageDps} alt={altTierDps} />
                                 </div>
 
                                 <img src='roles/support.svg' alt='support' />
                                 <div className='rankIcon'>
-                                    <img src={rankImageSup} alt={rankSup} />
-                                    <img src={tierImageSup} alt={tierSup} />
+                                    <img src={rankImageSup} alt={altRankSup} />
+                                    <img src={tierImageSup} alt={altTierSup} />
                                 </div>
 
                                 <img src='roles/open.svg' alt='open' />
                                 <div className='rankIcon'>
-                                    <img src={rankImageOpen} alt={rankOpen} />
-                                    <img src={tierImageOpen} alt={tierOpen} />
+                                    <img src={rankImageOpen} alt={altRankOpen} />
+                                    <img src={tierImageOpen} alt={altTierOpen} />
                                 </div>
                             </div>
 
                             <div className='career-stats'>
-                                <h1>Time played: <b>{(timePlayed / 3600 * 10).toFixed(0)}<u>hours</u></b></h1>
+                                <h1>Time played: <b>{(timePlayed / 3600).toFixed(0)}<u>hours</u></b></h1>
                                 <h1>Games played: <b>{gamesPlayed}</b></h1>
                                 <h1>Games won: <b>{gamesWon}</b></h1>
                                 <h1>Games lost: <b>{gamesLost}</b></h1>
                                 <h1>
-                                    Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{(favoriteHeroPlaytime / 3600 * 10).toFixed(0)}<u>hours</u></b>
+                                    Favortite hero: <img src={favoriteHeroImg} alt={favoriteHero} /> <b>{(favoriteHeroPlaytime / 3600).toFixed(0)}<u>hours</u></b>
                                 </h1>
                             </div>
                         </div>
